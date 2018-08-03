@@ -5,11 +5,24 @@ using System.Web;
 using System.Web.Mvc;
 using Vidly.Models;
 using Vidly.ViewModels;
+using System.Data.Entity;
 
 namespace Vidly.Controllers
 {
     public class MoviesController : Controller
     {
+        private ApplicationDbContext _context { get; }
+
+        public MoviesController()
+        {
+            _context = new ApplicationDbContext();
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            _context.Dispose();
+        }
+
         // GET: Movie/Random
         public ActionResult Random()
         {
@@ -41,9 +54,51 @@ namespace Vidly.Controllers
 //            return Content("year:" + year + "month:" + month);
 //        }
 
-        public ActionResult Edit(int? id)
+        public ActionResult New()
         {
-            return Content("id=" + id);
+            var genres = _context.Genres.ToList();
+            var viewModel = new MovieFormViewModel
+            {
+                Genres = genres
+            };
+            return View("MovieForm", viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult Save(Movie movie)
+        {
+            if (movie.Id == 0)
+                _context.Movies.Add(movie);
+            else
+            {
+                var movieInDb = _context.Movies.Single(m => m.Id == movie.Id);
+                movieInDb.Name = movie.Name;
+                movieInDb.ReleaseDate = movie.ReleaseDate;
+                movieInDb.DateAdded = movie.DateAdded;
+                movieInDb.Stock = movie.Stock;
+                movieInDb.GenreId = movie.GenreId;
+            }
+            _context.SaveChanges();
+            return RedirectToAction("Index", "Movies");
+        }
+
+        public ActionResult Index()
+        {
+            //throw new NotImplementedException();
+            var movies = _context.Movies.Include(m => m.Genre).ToList();
+            return View(movies);
+        }
+
+        public ActionResult Edit(int id)
+        {
+            var genres = _context.Genres.ToList();
+            var movie = _context.Movies.Single(m => m.Id == id);
+            var viewModel = new MovieFormViewModel
+            {
+                Genres = genres,
+                Movie = movie
+            };
+            return View("MovieForm", viewModel);
         }
     }
 }
