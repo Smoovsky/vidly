@@ -74,7 +74,7 @@ namespace Vidly.Controllers.API
             if (movieInDb == null)
                 return NotFound();
             _context.Movies.Remove(movieInDb);
-
+            _context.SaveChanges();
             return Ok();
         }
     }

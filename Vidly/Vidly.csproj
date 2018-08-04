@@ -259,6 +259,10 @@
     <Compile Include="Migrations\201808030208160_populateGrenre.Designer.cs">
       <DependentUpon>201808030208160_populateGrenre.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201808042157157_seedUsers.cs" />
+    <Compile Include="Migrations\201808042157157_seedUsers.Designer.cs">
+      <DependentUpon>201808042157157_seedUsers.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -622,6 +626,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201808030208160_populateGrenre.resx">
       <DependentUpon>201808030208160_populateGrenre.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808042157157_seedUsers.resx">
+      <DependentUpon>201808042157157_seedUsers.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

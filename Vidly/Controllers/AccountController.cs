@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Vidly.Models;
@@ -155,6 +156,14 @@ namespace Vidly.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    //temp code
+//                    var roleStore = new RoleStore<IdentityRole>(new ApplicationDbContext());
+//                    var roleManager = new RoleManager<IdentityRole>(roleStore);
+//                    await roleManager.CreateAsync(new IdentityRole("CanMangeMovies"));
+//                    await UserManager.AddToRoleAsync(user.Id, "CanMangeMovies");
+                    
+
+
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // 有关如何启用帐户确认和密码重置的详细信息，请访问 https://go.microsoft.com/fwlink/?LinkID=320771
