@@ -20,6 +20,9 @@
             <tr>
                 <td>@Html.ActionLink(customer.Name, "Edit", "Customers", new {id = customer.Id}, null)</td>
                 <td>@customer.MembershipType.DiscountRate%</td>
+                <td>
+                    <button class="btn-link">Delete</button>
+                </td>
             </tr>
         }
     </tbody>
