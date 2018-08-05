@@ -13,7 +13,7 @@ namespace Vidly.Controllers.API
 {
     public class CustomersController : ApiController
     {
-        private ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
         public CustomersController()
         {
@@ -21,9 +21,16 @@ namespace Vidly.Controllers.API
         }
 
         //GET /api/customers
-        public IHttpActionResult GetCustomers()
+        public IHttpActionResult GetCustomers(string query = null)
         {
-            return Ok(_context.Customers.Include(c => c.MembershipType).ToList().Select(Mapper.Map<Customer, CustomerDTO>));
+            var customersQuery = _context.Customers.Include(c => c.MembershipType);
+
+            if (!String.IsNullOrEmpty(query))
+                customersQuery = customersQuery.Where(c => c.Name.Contains(query));
+
+            var customerDTOs = customersQuery.ToList().Select(Mapper.Map<Customer, CustomerDTO>);
+
+            return Ok(customerDTOs);
         }
 
         //GET /api/customers/1
