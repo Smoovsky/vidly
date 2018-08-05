@@ -152,7 +152,7 @@ namespace Vidly.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, DriverLicense = model.DriverLicense};
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -162,7 +162,7 @@ namespace Vidly.Controllers
 //                    await roleManager.CreateAsync(new IdentityRole("CanMangeMovies"));
 //                    await UserManager.AddToRoleAsync(user.Id, "CanMangeMovies");
                     
-
+                    
 
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
@@ -376,7 +376,7 @@ namespace Vidly.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, DriverLicense = model.DriverLicense};
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {

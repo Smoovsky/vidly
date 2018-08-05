@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.ApplicationInsights.Web;
 
 namespace Vidly.Models
 {
@@ -8,6 +10,11 @@ namespace Vidly.Models
         [Required]
         [Display(Name = "电子邮件")]
         public string Email { get; set; }
+
+        [Required]
+        [StringLength(255)]
+        [Display(Name = "Driver License")]
+        public string DriverLicense { get; set; }
     }
 
     public class ExternalLoginListViewModel
@@ -64,6 +71,11 @@ namespace Vidly.Models
 
     public class RegisterViewModel
     {
+        [Required]
+        [StringLength(255)]
+        [Display(Name = "Driver License")]
+        public string DriverLicense { get; set; }
+
         [Required]
         [EmailAddress]
         [Display(Name = "电子邮件")]
